@@ -1,0 +1,25 @@
+{
+  "name": "iot_openit",
+  "version": "1.0.0",
+  "description": "Clermont Ferrand",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/123445666/iot_openit.git"
+  },
+  "keywords": [
+    "iot",
+    "openit",
+    "clermont",
+    "ferrand"
+  ],
+  "author": "funaway89",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/123445666/iot_openit/issues"
+  },
+  "homepage": "https://github.com/123445666/iot_openit#readme"
+}
