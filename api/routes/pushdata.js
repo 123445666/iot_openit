@@ -22,13 +22,19 @@ router.post('/pushdata', async function (req, res) {
     const writeApi = client.getWriteApi(org, bucket);
     writeApi.useDefaultTags({ host: 'host1' });
 
-    const tempPoint = new Point("tramev2").intField('temp', temp);
-    const codePoint = new Point("tramev2").intField('code', code);
-    const erorPoint = new Point("tramev2").booleanField('error', error);
-
-    writeApi.writePoint(tempPoint);
-    writeApi.writePoint(codePoint);
-    writeApi.writePoint(erorPoint);
+    if(error) {
+        const tempPoint = new Point("trame_error").intField('temp', temp);
+        const codePoint = new Point("trame_error").intField('code', code);
+    
+        writeApi.writePoint(tempPoint);
+        writeApi.writePoint(codePoint);
+    } else {
+        const tempPoint = new Point("trame_running").intField('temp', temp);
+        const codePoint = new Point("trame_running").intField('code', code);
+    
+        writeApi.writePoint(tempPoint);
+        writeApi.writePoint(codePoint);
+    }
 
     writeApi
         .close()
