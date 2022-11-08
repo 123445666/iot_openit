@@ -9,9 +9,9 @@ router.post('/pushdata', async function (req, res) {
     data = req.body.data
     let error = false;
     let code = parseInt(data.substring(0, 2), 16);
-    let checkValid = data.substring(2, 4);
+    let checkValid = parseInt(data.substring(6, 8), 16);
     let temp = parseInt(data.substring(4, 6), 16);
-    if (checkValid !== "00" || data.length > 6) error = true;
+    if (checkValid == "00") error = true;
 
     // You can generate an API token from the "API Tokens Tab" in the UI
     const token = 'LAIeoZLm4xKm_C7iHbMy90I95zYJg-qMYzbVusluR0aG7IrIad9lKnsWL7Invb1Wwok2hZxEWQNeMnCFX55daQ==';
@@ -22,16 +22,16 @@ router.post('/pushdata', async function (req, res) {
     const writeApi = client.getWriteApi(org, bucket);
     writeApi.useDefaultTags({ host: 'host1' });
 
-    if(error) {
+    if (error) {
         const tempPoint = new Point("trame_error").intField('temp', temp);
         const codePoint = new Point("trame_error").intField('code', code);
-    
+
         writeApi.writePoint(tempPoint);
         writeApi.writePoint(codePoint);
     } else {
         const tempPoint = new Point("trame_running").intField('temp', temp);
         const codePoint = new Point("trame_running").intField('code', code);
-    
+
         writeApi.writePoint(tempPoint);
         writeApi.writePoint(codePoint);
     }
@@ -46,14 +46,5 @@ router.post('/pushdata', async function (req, res) {
             console.log('Finished ERROR')
         })
 });
-
-function decodeString(string, length) {
-    let result = string;
-    while (result.length < length * 2) {
-        result = '0' + result;
-    }
-
-    return result;
-}
 
 module.exports = router;

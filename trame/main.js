@@ -26,7 +26,7 @@ function sendData(data) {
 function start() {
     const value = toByte(randomNumber(TEMP_MIN, TEMP_MAX).toString(16), 2);
     const code = toByte((40).toString(16), 1);
-    const payload = code + value + "00";
+    const payload = code + value + toByte(randomNumber(0, 9).toString(16), 1);
 
     console.log(payload);
 
