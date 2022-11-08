@@ -27,9 +27,7 @@ function start() {
     const value = toByte(randomNumber(TEMP_MIN, TEMP_MAX).toString(16), 2);
     const code = toByte((40).toString(16), 1);
 
-    const codeMachine = toByte(randomNumber(1, 10).toString(16), 1);
-
-    const payload = codeMachine + code + value + toByte(randomNumber(0, 9).toString(16), 1);
+    const payload = code + value + toByte(randomNumber(0, 9).toString(16), 1);
 
     console.log(payload);
 

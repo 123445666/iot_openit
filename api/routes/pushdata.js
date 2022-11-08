@@ -8,10 +8,9 @@ router.post('/pushdata', async function (req, res) {
     console.log(req.body.data);
     data = req.body.data
     let error = false;
-    let codeMachine = parseInt(data.substring(0, 2), 16);
-    let code = parseInt(data.substring(2, 4), 16);
-    let temp = parseInt(data.substring(6, 8), 16);
-    let checkValid = parseInt(data.substring(8, 10), 16);
+    let code = "0x" + data.substring(0, 2);
+    let temp = parseInt(data.substring(4, 6), 16);
+    let checkValid = parseInt(data.substring(6, 8), 16);
     if (checkValid == "00") error = true;
 
     // You can generate an API token from the "API Tokens Tab" in the UI
@@ -24,14 +23,11 @@ router.post('/pushdata', async function (req, res) {
     writeApi.useDefaultTags({ host: 'host1' });
 
     if (error) {
-        const tempPoint = new Point("trame_error").intField('codeMachine', codeMachine);
-        const codePoint = new Point("trame_error").intField('code', code);
-
-        writeApi.writePoint(tempPoint);
+        const codePoint = new Point("trame-error").stringField('code', code);
         writeApi.writePoint(codePoint);
     } else {
-        const tempPoint = new Point("trame_running").intField('temp', temp);
-        const codePoint = new Point("trame_running").intField('code', code);
+        const tempPoint = new Point("trame-running").intField('temp', temp);
+        const codePoint = new Point("trame-running").stringField('code', code);
 
         writeApi.writePoint(tempPoint);
         writeApi.writePoint(codePoint);
